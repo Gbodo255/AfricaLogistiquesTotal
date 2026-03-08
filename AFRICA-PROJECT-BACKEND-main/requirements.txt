@@ -11,6 +11,7 @@ idna==3.11
 jwt==1.4.0
 pillow==12.1.0
 psycopg2-binary==2.9.11
+mysqlclient==2.2.6
 pycparser==2.23
 requests==2.32.5
 sqlparse==0.5.5

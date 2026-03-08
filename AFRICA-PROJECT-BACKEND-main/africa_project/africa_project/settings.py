@@ -92,6 +92,16 @@ if env('DATABASE_URL', default=None):
     DATABASES = {
         'default': env.db(),
     }
+elif env('MYSQL_NAME', default=None):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': env('MYSQL_NAME'),
+            'USER': env('MYSQL_USER'),
+            'PASSWORD': env('MYSQL_PASSWORD'),
+            'HOST': env('MYSQL_HOST', default='localhost'),
+        }
+    }
 else:
     DATABASES = {
         'default': {
