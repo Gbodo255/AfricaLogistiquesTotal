@@ -10,22 +10,32 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+import environ
+
+# Initialize environ
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Read .env file if it exists
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-t@&@sl^b&blyan^3ybbq8zs3t!ri2yz@=w0)#_w2v8)yvt-h4v'
+SECRET_KEY = env('SECRET_KEY', default='django-insecure-t@&@sl^b&blyan^3ybbq8zs3t!ri2yz@=w0)#_w2v8)yvt-h4v')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '.render.com', '.vercel.app'])
 
 
 # Application definition
@@ -36,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'corsheaders',
     
@@ -44,6 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,16 +88,21 @@ WSGI_APPLICATION = 'africa_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'africa_project',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+if env('DATABASE_URL', default=None):
+    DATABASES = {
+        'default': env.db(),
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'africa_project',
+            'USER': 'postgres',
+            'PASSWORD': '1234',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 
 # Password validation
@@ -124,7 +141,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = 'media/'
 
@@ -135,13 +154,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-FRONTEND_URL = "http://localhost:3000"
+FRONTEND_URL = env('FRONTEND_URL', default="http://localhost:3000")
 
 # CORS Configuration
-CORS_ALLOWED_ORIGINS = [
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-]
+])
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -162,8 +181,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'testafricaproject@gmail.com' # Votre adresse email Gmail
-EMAIL_HOST_PASSWORD = 'fvqn wkqa ftvk lexs'  # Utiliser un mot de passe d'application si la 2FA est activée
-DEFAULT_FROM_EMAIL = "AFRICA PROJECT"
+EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='testafricaproject@gmail.com')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='fvqn wkqa ftvk lexs')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default="AFRICA PROJECT")
 # EMAIL_USE_SSL = False
 # EMAIL_TIMEOUT = 5

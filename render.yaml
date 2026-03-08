@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: africa-logistics-backend
+    env: python
+    rootDir: "AFRICA-PROJECT-BACKEND-main/africa_project"
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn africa_project.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: DJANGO_SETTINGS_MODULE
+        value: africa_project.settings
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: africa-logistics-db
+          property: connectionString
+      - key: ALLOWED_HOSTS
+        value: africa-logistics-backend.onrender.com,africa-logistiques-total.vercel.app
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://africa-logistiques-total.vercel.app
+
+databases:
+  - name: africa-logistics-db
+    databaseName: africa_project
+    user: africa_user
+    plan: free
