@@ -8,5 +8,8 @@ pip install -r ../requirements.txt
 # Convert static files
 python manage.py collectstatic --no-input
 
-# Apply any outstanding database migrations
-python manage.py migrate
+# Add execution rights to run.sh
+chmod +x run.sh
+
+# Apply any outstanding database migrations (Commented out during build due to Render network issues)
+# python manage.py migrate

@@ -1,10 +1,10 @@
 services:
   - type: web
-    name: africa-logistics-backend
+    name: africa-backend-gbodo255
     env: python
     rootDir: "AFRICA-PROJECT-BACKEND-main/africa_project"
     buildCommand: "./build.sh"
-    startCommand: "gunicorn africa_project.wsgi:application"
+    startCommand: "sh run.sh"
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0
