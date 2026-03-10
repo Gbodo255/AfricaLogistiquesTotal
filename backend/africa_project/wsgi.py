@@ -15,10 +15,18 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'africa_project.settings')
 
-def application(environ, start_response):
-    status = '200 OK'
-    output = b"HELLO WORLD - WSGI IS WORKING"
-    response_headers = [('Content-type', 'text/plain'),
-                        ('Content-Length', str(len(output)))]
-    start_response(status, response_headers)
-    return [output]
+try:
+    application = get_wsgi_application()
+except Exception:
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.error("Failed to get WSGI application", exc_info=True)
+    
+    # Simple error app for debugging
+    def application(environ, start_response):
+        status = '500 Internal Server Error'
+        output = b"CRITICAL ERROR DURING STARTUP:\n\n" + traceback.format_exc().encode('utf-8')
+        response_headers = [('Content-type', 'text/plain'),
+                            ('Content-Length', str(len(output)))]
+        start_response(status, response_headers)
+        return [output]
