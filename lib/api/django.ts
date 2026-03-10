@@ -2,7 +2,7 @@
  * Service API pour communiquer avec le backend Django
  */
 
-const DJANGO_API_URL = process.env.NEXT_PUBLIC_DJANGO_API_URL || 'http://localhost:8000/api/africa_logistic'
+const DJANGO_API_URL = process.env.NEXT_PUBLIC_DJANGO_API_URL || 'https://africa-backend-gbodo255.onrender.com/api/africa_logistic'
 
 interface ApiResponse<T> {
   message?: string
