@@ -35,7 +35,13 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-t@&@sl^b&blyan^3ybbq8zs3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '.render.com', '.vercel.app'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[
+    'localhost', 
+    '127.0.0.1', 
+    'africalogistiquestotalafrica-backend.onrender.com',
+    'africa-logistiques-total.vercel.app',
+    '.render.com'
+])
 
 
 # Application definition
