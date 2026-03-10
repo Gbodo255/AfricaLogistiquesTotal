@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: africa-backend-gbodo255
+    name: africalogistiquestotalafrica-backend
     env: python
     rootDir: "backend"
     buildCommand: "./build.sh"
