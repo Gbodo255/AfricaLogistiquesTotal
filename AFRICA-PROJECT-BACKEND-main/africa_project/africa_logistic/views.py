@@ -323,6 +323,10 @@ def verify_account(request):
     except User.DoesNotExist:
         return JsonResponse({'error': 'Utilisateur non trouvé.'}, status=404)
 
+@csrf_exempt
+def ping(request):
+    return JsonResponse({'status': 'ok', 'message': 'Pong! Django is alive.'}, status=200)
+
 # Vue de connexion d'un utilisateur
 @csrf_exempt
 @require_http_methods(["POST"])
