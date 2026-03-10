@@ -35,7 +35,7 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-t@&@sl^b&blyan^3ybbq8zs3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '.render.com', '.vercel.app'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '.render.com', '.onrender.com', '.vercel.app', '*'])
 
 
 # Application definition
