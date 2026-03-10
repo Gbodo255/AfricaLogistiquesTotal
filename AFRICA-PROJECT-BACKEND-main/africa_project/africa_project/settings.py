@@ -94,11 +94,7 @@ WSGI_APPLICATION = 'africa_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# Correct common password encoding issues (slash in password)
-database_url = os.environ.get('DATABASE_URL')
-if database_url and 'Naomie334/Chris123' in database_url:
-    database_url = database_url.replace('Naomie334/Chris123', 'Naomie334%2FChris123')
-    os.environ['DATABASE_URL'] = database_url
+# Database configuration handles password encoding via DATABASE_URL env var
 
 if env('DATABASE_URL', default=None):
     DATABASES = {

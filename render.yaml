@@ -15,16 +15,8 @@ services:
       - key: DEBUG
         value: "True"
       - key: DATABASE_URL
-        fromDatabase:
-          name: africa-logistics-db
-          property: connectionString
+        value: postgresql://postgres:Naomie334%2FChris123@db.nzoxcdzytohijlcsxmjo.supabase.co:5432/postgres
       - key: ALLOWED_HOSTS
         value: africalogistiquestotalafrica-backend.onrender.com,africa-logistiques-total.vercel.app,.render.com
       - key: CORS_ALLOWED_ORIGINS
         value: https://africa-logistiques-total.vercel.app
-
-databases:
-  - name: africa-logistics-db
-    databaseName: africa_project
-    user: africa_user
-    plan: free
