@@ -5,8 +5,8 @@ set -o errexit
 # Install dependencies
 pip install -r ../requirements.txt
 
-# Convert static files
-python manage.py collectstatic --no-input
+# Convert static files (Mocking DATABASE_URL to avoid connection during build)
+DATABASE_URL=sqlite:///:memory: python manage.py collectstatic --no-input
 
 # Add execution rights to run.sh
 chmod +x run.sh
