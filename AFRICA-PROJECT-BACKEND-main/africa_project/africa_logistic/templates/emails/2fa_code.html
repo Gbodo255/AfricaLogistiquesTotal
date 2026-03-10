@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Votre code de vérification 2FA</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .code { font-size: 32px; font-weight: bold; text-align: center; color: #10b981; letter-spacing: 5px; margin: 20px 0; }
+        .footer { font-size: 12px; color: #666; margin-top: 30px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Sécurité AFRICA PROJECT</h2>
+        </div>
+        <p>Bonjour {{ user.presentation }},</p>
+        <p>Vous tentez de vous connecter à votre compte. Veuillez utiliser le code de vérification à deux facteurs suivant :</p>
+        <div class="code">{{ code }}</div>
+        <p>Ce code est valable pendant {{ validity_minutes }} minutes.</p>
+        <p>Si vous n'êtes pas à l'origine de cette demande, nous vous recommandons de changer votre mot de passe immédiatement.</p>
+        <div class="footer">
+            <p>&copy; 2026 AFRICA PROJECT. Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+</html>
