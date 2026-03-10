@@ -19,9 +19,15 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.http import JsonResponse
+
+def ping_direct(request):
+    return JsonResponse({'status': 'ok', 'source': 'urls_main'}, status=200)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/africa_logistic/', include('africa_logistic.urls')),
+    path('ping_direct/', ping_direct),
 ]
 
 # Ajout des urls medias
