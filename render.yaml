@@ -2,7 +2,7 @@ services:
   - type: web
     name: africa-backend-gbodo255
     env: python
-    rootDir: "AFRICA-PROJECT-BACKEND-main/africa_project"
+    rootDir: "backend"
     buildCommand: "./build.sh"
     startCommand: "sh run.sh"
     envVars:
